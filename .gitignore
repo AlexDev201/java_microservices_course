@@ -1,0 +1,53 @@
+### Build ###
+target/
+out/
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Maven wrapper jar (regenerable) ###
+.mvn/wrapper/maven-wrapper.jar
+
+### STS / Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+### H2 / datos locales generados ###
+*.mv.db
+*.trace.db
+*.lock.db
+data/
+
+### Logs ###
+*.log
+logs/
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Otros ###
+HELP.md
