@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public class AccountsDto {
     private Long accountNumber;
     private  String accountType;
