@@ -28,7 +28,7 @@ Organizado como monorepo: cada sección del curso vive en su propia carpeta (`se
 
 | Sección | Tema | Servicios | Estado |
 |---------|------|-----------|--------|
-| 2 | Spring Boot REST APIs, validaciones y excepciones | `accounts` | 🚧 En progreso |
+| 2 | Spring Boot REST APIs, validaciones y excepciones | `accounts`, `cards`, `loans` | ✅ Completada |
 | 3 | Docker | | ⬜ Pendiente |
 | 4 | Docker Compose | | ⬜ Pendiente |
 | 5 | Spring Cloud Config Server | | ⬜ Pendiente |
@@ -47,7 +47,9 @@ Organizado como monorepo: cada sección del curso vive en su propia carpeta (`se
 ```
 java_microservices_course/
 ├── section_2/
-│   └── accounts/       # Microservicio de cuentas (Spring Boot)
+│   ├── accounts/       # Microservicio de cuentas (Spring Boot, puerto 8080)
+│   ├── cards/          # Microservicio de tarjetas (Spring Boot, puerto 8081)
+│   └── loans/          # Microservicio de préstamos (Spring Boot, puerto 8090)
 └── ...
 ```
 
@@ -77,3 +79,45 @@ curl -X POST http://localhost:8080/api/create \
 ```
 
 Respuestas: `201` creado · `400` customer ya existe (mobileNumber duplicado).
+
+### cards (section_2)
+
+Puerto: `8081`. CRUD por `mobileNumber` (mismo patrón que accounts).
+
+```bash
+cd section_2/cards
+./mvnw spring-boot:run
+```
+
+```bash
+# Crear tarjeta
+curl -X POST "http://localhost:8081/api/create?mobileNumber=3104787594"
+# Consultar tarjeta
+curl "http://localhost:8081/api/fetch?mobileNumber=3104787594"
+# Actualizar tarjeta (Body: CardsDto con cardNumber, cardType, totalLimit, amountUsed, availableAmount)
+curl -X PUT http://localhost:8081/api/update -H "Content-Type: application/json" -d '{ ... }'
+# Eliminar tarjeta
+curl -X DELETE "http://localhost:8081/api/delete?mobileNumber=3104787594"
+```
+
+### loans (section_2)
+
+Puerto: `8090`. CRUD por `mobileNumber` (mismo patrón que accounts).
+
+```bash
+cd section_2/loans
+./mvnw spring-boot:run
+```
+
+```bash
+# Crear préstamo
+curl -X POST "http://localhost:8090/api/create?mobileNumber=3104787594"
+# Consultar préstamo
+curl "http://localhost:8090/api/fetch?mobileNumber=3104787594"
+# Actualizar préstamo (Body: LoansDto con loanNumber, loanType, totalLoan, amountPaid, outstandingAmount)
+curl -X PUT http://localhost:8090/api/update -H "Content-Type: application/json" -d '{ ... }'
+# Eliminar préstamo
+curl -X DELETE "http://localhost:8090/api/delete?mobileNumber=3104787594"
+```
+
+Los tres microservicios exponen Swagger UI en `http://localhost:{puerto}/swagger-ui/index.html`.
